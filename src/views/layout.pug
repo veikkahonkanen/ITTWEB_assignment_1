@@ -1,0 +1,19 @@
+extends base-layout
+
+block main-content
+  body.d-flex.flex-column.h-100
+    header
+      nav.navbar.navbar-dark.bg-primary
+        a.navbar-brand(href='/') Student Handler
+        button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarToggleExternalContent' aria-controls='navbarToggleExternalContent' aria-expanded='false' aria-label='Toggle navigation')
+          span.navbar-toggler-icon
+    .container-main
+      .bg-light.border-right.sidebar.d-none.d-sm-block
+        .list-group.list-group-flush
+          a.list-group-item.list-group-item-action.bg-light(href='/') Add Grade
+          a.list-group-item.list-group-item-action.bg-light(href='/students') Students
+      main.container-fluid
+        block content
+    footer.footer.py-4.bg-dark.text-white-50
+      .container.text-center
+        span Test footer
