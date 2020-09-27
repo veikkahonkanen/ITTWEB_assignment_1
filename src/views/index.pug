@@ -1,21 +1,9 @@
-extends base-layout
+extends index-layout
 
-//- Inspired in https://getbootstrap.com/docs/4.5/examples/cover/#
-block main-content
-    body.welcome-page.h-100.text-center
-        div.cover-container.d-flex.w-100.h-100.p-3.mx-auto.flex-column
-            header.masthead.mb-auto
-                .inner
-                    h3.masthead-brand Fitpug
-                    nav.nav.nav-masthead.justify-content-center
-                        a.nav-link.active(href='#') Home
-                        a.nav-link(href='#') Login
-                        a.nav-link(href='#') Register
-            main.inner.welcome-cover(role='main')
-                h1.cover-heading FITPUG
-                p.lead Create your own wokouts in an intuitive way. Please register by pressing the button below or login to your account
-                p.lead
-                    a.btn.btn-lg.btn-secondary(href='#') Register
-            footer.mastfoot.mt-auto.inner
-                    p Webpage by the Internationals
+//- Inspired in https://getbootstrap.com/docs/4.5/examples/cover/
+block content
+    h1.cover-heading FITPUG
+        p.lead Create your own workouts in an intuitive way. Please register by pressing the button below or login to your account
+        p.lead
+            a.btn.btn-lg.btn-secondary(href='/auth/register') Register
 

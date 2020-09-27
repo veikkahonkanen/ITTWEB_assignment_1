@@ -12,7 +12,7 @@ require("./src/config/passport");
 const indexRouter = require('./src/routes/index');
 const authRouter = require('./src/routes/auth');
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'src/views'));

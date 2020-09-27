@@ -1,0 +1,14 @@
+extends index-layout
+
+block content
+    .container-fluid
+        .row.m-5.p-5.text-justify
+            form(action='/auth/login', method='post')
+                .form-group
+                    label(for='email') E-mail address
+                    input#email.form-control(type='email' aria-describedby='email-info' placeholder='Enter e-mail address')
+                .form-group
+                    label(for='password') Password
+                    input#password.form-control(type='password' placeholder='Enter password')
+                br
+                button.btn.btn-primary(type='submit') Login
