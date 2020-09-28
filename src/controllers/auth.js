@@ -2,11 +2,11 @@ const User = require("../models/user");
 const passport = require('passport');
 
 module.exports.showLogin  = function(req,res,next){
-    res.render('login', {layout: "empty_layout", title: "Login"});
+    res.render('login', {title: "Login", route: "login"});
 }
 
 function showRegister(res, extraParams){
-    res.render('register', {layout: "empty_layout", title: "Register", ...extraParams});
+    res.render('register', {title: "Register", route: "register", ...extraParams});
 }
 
 module.exports.showRegister  = function(req,res,next){

@@ -8,9 +8,9 @@ block main-content
                 .inner
                     h3.masthead-brand FITPUG
                     nav.nav.nav-masthead.justify-content-center
-                        a.nav-link.active(href='/') Home
-                        a.nav-link(href='/auth/login') Login
-                        a.nav-link(href='/auth/register') Register
+                        a.nav-link(href='/', class=route === '' ? "active" : "") Home
+                        a.nav-link(href='/auth/login', class=route === 'login' ? "active" : "") Login
+                        a.nav-link(href='/auth/register', class=route === 'register' ? "active" : "") Register
             main.inner.welcome-cover(role='main')
                 block content
             footer.mastfoot.mt-auto.inner
