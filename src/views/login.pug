@@ -6,9 +6,9 @@ block content
             form(action='/auth/login', method='post')
                 .form-group
                     label(for='email') E-mail address
-                    input#email.form-control(type='email' aria-describedby='email-info' placeholder='Enter e-mail address')
+                    input#email.form-control(name='email' type='email' aria-describedby='email-info' placeholder='Enter e-mail address')
                 .form-group
                     label(for='password') Password
-                    input#password.form-control(type='password' placeholder='Enter password')
+                    input#password.form-control(name='password' type='password' placeholder='Enter password')
                 br
                 button.btn.btn-primary(type='submit') Login

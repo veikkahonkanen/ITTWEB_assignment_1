@@ -15,7 +15,8 @@ module.exports.showRegister  = function(req,res,next){
 
 module.exports.loginUser  = [passport.authenticate("local", { failureRedirect: "/auth/login" }),
 function (req, res) {
-  res.redirect("/");
+    console.log("Hello")
+  res.redirect("/workouts");
 }];
 
 module.exports.registerUser  = async function(req,res, next){
@@ -28,6 +29,7 @@ module.exports.registerUser  = async function(req,res, next){
             const passwordPlain = req.body.password;
             await user.setPassword(passwordPlain);
             await user.save();
+            await passport.authenticate("local", { failureRedirect: "/auth/login" });
             res.redirect("/workouts");
         }
         catch(err){

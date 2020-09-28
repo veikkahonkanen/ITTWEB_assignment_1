@@ -24,6 +24,7 @@ passport.use(new LocalStrategy({
         let user;
         try {
             user = await User.findOne({ email: username }).exec();
+
             if (!user) {
                 return done(null, false, { message: 'Incorrectusername.' });
             }
