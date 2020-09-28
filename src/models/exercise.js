@@ -6,7 +6,9 @@ const exerciseSchema = new Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
     set: { type: Number, required: true },
-    reps: { type: Number, required: true }
+    durationType: {type: ["time", "reps"], required: true},
+    duration: {type: Number, required: true}
+    
 });
 
 module.exports.Exercise = mongoose.model("Exercise", exerciseSchema);
