@@ -13,8 +13,6 @@ const indexRouter = require('./src/routes/index');
 const authRouter = require('./src/routes/auth');
 const workoutRouter = require('./src/routes/workout');
 
-const ensureLogin= require("connect-ensure-login");
-
 const app = express();
 
 // view engine setup
@@ -37,9 +35,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', indexRouter);
-app.use('/auth',ensureLogin.ensureLoggedOut("/workouts"), authRouter);
+app.use('/auth', authRouter);
 
-app.use('/workouts',ensureLogin.ensureLoggedIn("/auth/login"), workoutRouter);
+app.use('/workouts', workoutRouter);
 
 
 // catch 404 and forward to error handler
