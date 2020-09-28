@@ -6,8 +6,7 @@ const saltRounds = 10;
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-    name: {type: String, required: true},
-    email: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
     hash: {type: String, required: true}
 });
 

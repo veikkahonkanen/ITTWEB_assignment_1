@@ -19,17 +19,21 @@ function (req, res) {
 }];
 
 module.exports.registerUser  = async function(req,res, next){
-    if(!req.body.name || !req.body.email || !req.body.password){
+    if(!req.body.email || !req.body.password){
         showRegister(res, {"errorMessage": "All fields required"});
     }
-    try{
-        const user = new User({name: req.body.name, email: req.body.email});
-        const passwordPlain = req.body.password;
-        await user.setPassword(passwordPlain);
-        await user.save();
-        res.redirect("/");
+    else{
+        try{
+            const user = new User({name: req.body.name, email: req.body.email});
+            const passwordPlain = req.body.password;
+            await user.setPassword(passwordPlain);
+            await user.save();
+            res.redirect("/workouts");
+        }
+        catch(err){
+            // TOOD: Detect type of error and show informative description ex: taken email
+            showRegister(res, {"errorMessage": "Error registering"})
+        }
     }
-    catch(err){
-        return  next(err);
-    }
+    
 }

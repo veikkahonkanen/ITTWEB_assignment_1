@@ -3,14 +3,14 @@ extends index-layout
 block content
     .container-fluid
         .row.m-5.p-5.text-justify
-            form(action='/auth/register', method='post')
+            form(action='/auth/register', method='POST')
                 .form-group
                     label(for='email') E-mail address
-                    input#email.form-control(type='email' aria-describedby='email-info' placeholder='Enter e-mail address')
+                    input#email.form-control(type='email' name='email' aria-describedby='email-info' placeholder='Enter e-mail address')
                     small#email-info.form-text.text-muted We'll never share your e-mail with anyone else.
                 .form-group
                     label(for='password') Password
-                    input#password.form-control(type='password' placeholder='Enter password')
+                    input#password.form-control(type='password' name='password' placeholder='Enter password')
                     small#password-info.form-text.text-muted Enter between 8-72 characters.
                 .form-check
                     input#checkbox.form-check-input(type='checkbox')
