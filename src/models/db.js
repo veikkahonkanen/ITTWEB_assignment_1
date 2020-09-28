@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const dbUri = "mongodb://localhost/workout"//"mongodb+srv://ondrej:NFtJJkoVObT4Hs0N@cluster0.wlx3e.mongodb.net/workout?retryWrites=true&w=majority";
+const dbUri = "mongodb+srv://ondrej:NFtJJkoVObT4Hs0N@cluster0.wlx3e.mongodb.net/workout?retryWrites=true&w=majority";
 
 mongoose.connect(dbUri);
 

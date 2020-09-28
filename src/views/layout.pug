@@ -1,19 +1,18 @@
 extends base-layout
 
 block main-content
-  body.d-flex.flex-column.h-100
+  body
     header
-      nav.navbar.navbar-dark.bg-primary
-        a.navbar-brand(href='/') Student Handler
-        button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarToggleExternalContent' aria-controls='navbarToggleExternalContent' aria-expanded='false' aria-label='Toggle navigation')
-          span.navbar-toggler-icon
-    .container-main
-      .bg-light.border-right.sidebar.d-none.d-sm-block
-        .list-group.list-group-flush
-          a.list-group-item.list-group-item-action.bg-light(href='/') Add Grade
-          a.list-group-item.list-group-item-action.bg-light(href='/students') Students
-      main.container-fluid
-        block content
-    footer.footer.py-4.bg-dark.text-white-50
-      .container.text-center
-        span Test footer
+      nav.navbar.navbar-expand-md.navbar-dark.sticky-top.bg-dark
+        a.nav.navbar-brand(href='/workouts')
+          span FITPUG -&nbsp;
+          span= title
+        ul.navbar-nav.ml-auto
+          li.nav-item.dropdown
+            a#navbarLogout.nav-link.dropdown-toggle(href='/workouts' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+              span.mr-1= username
+            .dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
+              a.dropdown-item(href='/auth/logout') Logout
+    block content
+    footer.footer.container-fluid
+      span.text-muted © Webpage by the Internationals 2020
