@@ -19,5 +19,21 @@ module.exports.showWorkout = async function(req, res, next){
     catch(err){
         showWorkout(res, req);
     }
-    
+}
+
+
+module.exports.createWorkout = async function(req,res, next){
+    if(!req.body.name){
+        res.redirect("/workouts");
+    }
+    else{
+        try{
+            const workout = new Workout({name: req.body.name, userId: req.user._id});
+            await workout.save();
+            res.redirect(`/workouts/${workout._id}`);
+        }
+        catch(err){
+            return next(err);
+        }
+    }
 }
