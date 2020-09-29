@@ -3,12 +3,11 @@ workouts = []
 const Workout = require("../models/workout");
 
 
-function showWorkout(res){
-    res.render('workouts', {title: "Workouts"});
+function showWorkout(res, req){
+    res.render('workouts', {title: "Workouts", username: req.user.email});
 }
 module.exports.showWorkouts  = function(req,res,next){
-    res.render('workouts', {title: "Workouts", username: req.user.email});
-    // showWorkout(res);
+     showWorkout(res, req);
 }
 
 module.exports.showWorkout = async function(req, res, next){
@@ -18,7 +17,7 @@ module.exports.showWorkout = async function(req, res, next){
         res.render("workout", {title: workout.name});
     }
     catch(err){
-        showWorkout(res);
+        showWorkout(res, req);
     }
     
 }
