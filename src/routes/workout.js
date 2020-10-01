@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.use(ensureLogin.ensureLoggedIn("/auth/login"));
 
+router.get("/:workoutId", workoutController.showWorkout);
 router.get("/", workoutController.showWorkouts);
-router.get(":workoutId", workoutController.showWorkout);
-
+router.post("/", workoutController.createWorkout);
 module.exports = router;

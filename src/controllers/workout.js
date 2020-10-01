@@ -12,9 +12,9 @@ module.exports.showWorkouts  = function(req,res,next){
 
 module.exports.showWorkout = async function(req, res, next){
     try{
-        const workout = await Workout.findById(req.params.workspaceId);
+        const workout = await Workout.findById(req.params.workoutId);
 
-        res.render("workout", {title: workout.name});
+        res.render("workout", {title: workout.name, username: req.user.email});
     }
     catch(err){
         showWorkout(res, req);
