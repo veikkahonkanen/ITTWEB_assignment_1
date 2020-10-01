@@ -1,5 +1,6 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #f8f9fa;
 }
 
 .container-main {
@@ -67,6 +68,24 @@ body {
 
 .navbar-nav {
   list-style: none;
+}
+
+/*--- logged in user - layout ---*/
+.workout-content {
+  flex: 1;
+}
+
+.workout-item {
+  background-color: white;
+  /*margin-bottom: 1rem;*/
+}
+
+.workout-bottom {
+  text-align: right;
+}
+
+.float-right {
+  float: right !important;
 }
 
 /*--- footer ---*/
