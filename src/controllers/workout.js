@@ -1,7 +1,7 @@
 const Workout = require("../models/workout");
 
 async function showWorkout(res, req){
-    const userWorkouts = await Workout.find();
+    const userWorkouts = await Workout.find({ userId: req.user._id }).exec();
     res.render('workouts', {title: "Workouts", username: req.user.email, workouts: userWorkouts});
 }
 
