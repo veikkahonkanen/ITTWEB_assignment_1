@@ -1,11 +1,10 @@
-workouts = []
-
 const Workout = require("../models/workout");
 
-
-function showWorkout(res, req){
-    res.render('workouts', {title: "Workouts", username: req.user.email});
+async function showWorkout(res, req){
+    const userWorkouts = await Workout.find();
+    res.render('workouts', {title: "Workouts", username: req.user.email, workouts: userWorkouts});
 }
+
 module.exports.showWorkouts  = function(req,res,next){
      showWorkout(res, req);
 }
