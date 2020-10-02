@@ -10,10 +10,13 @@ router.get("/logout", function (req, res) {
 });
 
 router.use(ensureLogin.ensureLoggedOut("/workouts"));
-router.get("/login", auth.showLogin);
-router.get("/register", auth.showRegister);
+router.route("/login")
+  .get(auth.showLogin)
+  .post(auth.loginUser);
 
-router.post('/login', auth.loginUser);
+router.route("/register")
+  .get(auth.showRegister)
+  .post(auth.registerUser);
 
-router.post("/register", auth.registerUser);
+
 module.exports = router;
