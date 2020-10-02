@@ -8,7 +8,6 @@ const exerciseSchema = new Schema({
     set: { type: Number, required: true },
     durationType: {type: ["time", "reps"], required: true},
     duration: {type: Number, required: true}
-    
 });
 
 module.exports.Exercise = mongoose.model("Exercise", exerciseSchema);
