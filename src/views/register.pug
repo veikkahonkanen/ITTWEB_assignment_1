@@ -1,6 +1,9 @@
 extends index-layout
 
 block content
+    if errorMessage
+        .alert.alert-danger(role='alert') Error:&nbsp
+            =errorMessage
     .container-fluid
         .row.m-5.p-5.text-justify
             form(action='/auth/register', method='POST')
@@ -11,7 +14,6 @@ block content
                 .form-group
                     label(for='password') Password
                     input#password.form-control(type='password' name='password' placeholder='Enter password')
-                    small#password-info.form-text.text-muted Enter between 8-72 characters.
                 .form-check
                     input#checkbox.form-check-input(type='checkbox')
                     label.form-check-label(for='checkbox') I agree with the processing of my personal data.

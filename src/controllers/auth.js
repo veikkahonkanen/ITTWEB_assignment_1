@@ -27,8 +27,8 @@ const loginPromise = (req, user) => new Promise((resolve, reject) => {
 })
 
 module.exports.registerUser = async function (req, res, next) {
-    if (!req.body.email || !req.body.password) {
-        showRegister(res, { "errorMessage": "All fields required" });
+    if (!req.body.email || !req.body.password || !req.body.checkbox) {
+        showRegister(res, { "errorMessage": "All fields required!" });
     }
     else {
         try {
