@@ -27,7 +27,7 @@ module.exports.createWorkout = async function(req,res, next){
     }
     else{
         try{
-            const workout = new Workout({name: req.body.name, userId: req.user._id});
+            const workout = new Workout({name: req.body.name, description: req.body.description, userId: req.user._id});
             await workout.save();
             res.redirect(`/workouts/${workout._id}`);
         }

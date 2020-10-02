@@ -18,9 +18,7 @@ block content
                                 span= workout.name
                                 hr
                             .workout-desc.px-4.pt-2
-                                each exercise in workout.exercises
-                                    span= exercise.name
-                                    span &nbsp
+                                p= workout.description
                                 hr
                             .workout-bottom.px-4.py-3
                                 // TODO add link
@@ -44,6 +42,9 @@ block content
                         .form-group
                             label(for='name') Workout Name
                             input#name.form-control(name='name' autocomplete="off" placeholder='Enter workout name')
+                        .form-group
+                            label(for='description') Workout Description
+                            textarea#description.form-control(name='description' autocomplete="off" placeholder='Enter workout description')
                         button.btn.btn-primary(type='submit') Create
                 
                     

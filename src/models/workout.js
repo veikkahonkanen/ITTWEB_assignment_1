@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 const workoutSchema = new Schema({
     userId: { type: mongoose.ObjectId, required: true },
     name: { type: String, required: true },
+    description: String,
     exercises: [exercise]
 });
 
