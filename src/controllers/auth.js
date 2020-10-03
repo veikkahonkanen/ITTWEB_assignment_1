@@ -27,12 +27,12 @@ const loginPromise = (req, user) => new Promise((resolve, reject) => {
 })
 
 module.exports.registerUser = async function (req, res, next) {
-    if (!req.body.email || !req.body.password || !req.body.checkbox) {
+    if (!req.body.email || !req.body.password) {
         showRegister(res, { "errorMessage": "All fields required!" });
     }
     else {
         try {
-            const user = new User({ name: req.body.name, email: req.body.email });
+            const user = new User({ email: req.body.email });
             const passwordPlain = req.body.password;
             await user.setPassword(passwordPlain);
             await user.save();
