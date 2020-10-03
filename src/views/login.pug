@@ -2,8 +2,8 @@ extends index-layout
 
 block content
     .container-fluid
-        .row.m-5.p-5.text-justify
-            form(action='/auth/login', method='post')
+        .row.m-sm-5.p-sm-5.text-justify
+            form.w-100(action='/auth/login', method='post')
                 .form-group
                     label(for='email') E-mail address
                     input#email.form-control(name='email' type='email' aria-describedby='email-info' placeholder='Enter e-mail address')
