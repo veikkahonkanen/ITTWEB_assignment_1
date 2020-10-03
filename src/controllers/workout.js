@@ -38,21 +38,26 @@ module.exports.createWorkout = async function(req,res, next){
     }
 }
 
-module.exports.createExercise = async function(req,res, next){
-    if(!req.body.name || !req.body.description || !req.body.sets || !req.body.duration){
-        res.redirect("/workouts");
+module.exports.createExercise = async function(req, res, next){
+    if (!req.body.name || !req.body.description || !req.body.sets || !req.body.duration) {
+        console.log(req.body)
+        console.log("Something went wrong!");
+        res.redirect('/workouts' + req.url);
     }
     else{
         try{
             const exercise = new Exercise({
                                             name: req.body.name,
                                             description: req.body.description,
-                                            set: req.body.sets,
+                                            sets: req.body.sets,
                                             durationType: req.body.durationType,
                                             duration: req.body.duration
                                             });
-            console.log(exercise);
-            await exercise.save();
+            // Obtain workout ID from the url
+            const workoutID = req.url.replace(/\W/g, '');
+            const workout = await Workout.findById(workoutID);
+            await workout.exercises.push(exercise);
+            await workout.save();
             res.redirect(`/workouts/${workout._id}`);
         }
         catch(err){
