@@ -24,7 +24,7 @@ block content
                             td= exercise.description
                             td= exercise.sets
                             td= exercise.duration
-
+                                span= exercise.durationType === "time" ? " sec." : ""
 
     // Modal
     #createWorkoutModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='createExerciseModal' aria-hidden='true')
@@ -53,5 +53,5 @@ block content
                                 input#durationTypeReps.form-control(name='durationType' value='reps' type='radio' class="form-check-input")
                             br
                             label.mt-3.ml-1(for='duration') Duration
-                            input#duration.form-control(name='duration' autocomplete="off" placeholder='Enter exercise duration (min)', type='number')
+                            input#duration.form-control(name='duration' autocomplete="off" placeholder='Enter reps or time (seconds)', type='number')
                         button.btn.btn-primary(type='submit') Create
