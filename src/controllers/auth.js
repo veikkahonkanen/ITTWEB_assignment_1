@@ -1,49 +1,40 @@
 const User = require("../models/user");
-const passport = require('passport');
 
-module.exports.showLogin = function (req, res, next) {
-    res.render('login', { title: "Login", route: "login" });
+module.exports.login = async function (req, res, next) {
+    let user;
+    try {
+
+        user = await User.findOne({ email: req.body.email }).exec();
+        if (!user) {
+            return res.status(400).json({ "message": "User doesn't exist" });
+        }
+        const valid = await user.validPassword(req.body.password);
+        if (!valid) {
+            return res.status(400).message({ "message": "Incorrect password" });
+        }
+        return res.status(200).json({ "token": user.generateJwt() });
+    }
+    catch (err) {
+        next(err);
+    }
 }
-
-function showRegister(res, extraParams) {
-    res.render('register', { title: "Register", route: "register", ...extraParams });
-}
-
-module.exports.showRegister = function (req, res, next) {
-    showRegister(res, {});
-}
-
-module.exports.loginUser = [passport.authenticate("local", { failureRedirect: "/auth/login" }),
-function (req, res) {
-    res.redirect("/workouts");
-}];
-
-
-const loginPromise = (req, user) => new Promise((resolve, reject) => {
-    req.login(user, function (err) {
-        if (err) return reject(err);
-        resolve();
-    })
-})
 
 module.exports.registerUser = async function (req, res, next) {
     if (!req.body.email || !req.body.password) {
-        showRegister(res, { "errorMessage": "All fields required!" });
+        return res.status(400)
+            .json({ "message": "Required fields" })
     }
-    else {
-        try {
-            const user = new User({ email: req.body.email });
-            const passwordPlain = req.body.password;
-            await user.setPassword(passwordPlain);
-            await user.save();
-            await loginPromise(req, user);
-            res.redirect("/workouts");
+    try {
+        if(await User.exists({email: req.body.email})){
+            return res.status(400).json({"message": "Email already exists"})
         }
-        catch (err) {
-            console.log(err)
-            // TOOD: Detect type of error and show informative description ex: taken email
-            showRegister(res, { "errorMessage": "Error registering" });
-        }
+        const user = new User({ email: req.body.email });
+        const passwordPlain = req.body.password;
+        await user.setPassword(passwordPlain);
+        await user.save();
+        return res.send(user);
     }
-
+    catch (err) {
+        next(err);
+    }
 }

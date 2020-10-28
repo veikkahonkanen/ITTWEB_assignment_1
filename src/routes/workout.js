@@ -1,16 +1,16 @@
 const express = require('express');
 const workoutController = require('../controllers/workout');
-const ensureLogin= require("connect-ensure-login");
+const jwt = require('express-jwt');
 
 const router = express.Router();
+var jwtauth = jwt({ secret: process.env.JWT_SECRET, algorithms: ['HS256'] })
 
-router.use(ensureLogin.ensureLoggedIn("/auth/login"));
 
 router.route("/:workoutId")
-    .get(workoutController.showWorkout)
-    .post(workoutController.createExercise);
+    .get(workoutController.getWorkout)
+    .post(jwtauth, workoutController.createExercise);
 router.route("/")
-    .get(workoutController.showWorkouts)
-    .post(workoutController.createWorkout);
+    .get(workoutController.getWorkouts)
+    .post(jwtauth, workoutController.createWorkout);
     
 module.exports = router;

@@ -1,36 +1,46 @@
 const { Exercise } = require("../models/exercise");
 const Workout = require("../models/workout");
+const ObjectId = require('mongoose').Types.ObjectId;
 
-async function showWorkout(res, req){
-    const userWorkouts = await Workout.find({ userId: req.user._id }).exec();
-    res.render('workouts', {title: "Workouts", username: req.user.email, workouts: userWorkouts});
-}
-
-module.exports.showWorkouts  = function(req,res,next){
-     showWorkout(res, req);
-}
-
-module.exports.showWorkout = async function(req, res, next){
+module.exports.getWorkouts  = async function(req,res,next){
     try{
-        const workout = await Workout.findById(req.params.workoutId);
-
-        res.render("workout", {title: workout.name, username: req.user.email, workout : workout});
+        var usersProjection = { 
+            exercises: false
+        };
+        const userWorkouts = await Workout.find({}, usersProjection).exec();
+        res.send(userWorkouts);    
     }
     catch(err){
-        showWorkout(res, req);
+        next(err);
+    }
+}
+
+module.exports.getWorkout = async function(req, res, next){
+    try{
+        if(!ObjectId.isValid(req.params.workoutId) || !await Workout.exists({_id: req.params.workoutId})){
+            return res.status(404).json({"message": "Workout not found"})
+        }
+        const workout = await Workout.findById(req.params.workoutId);
+        res.send(workout);
+    }
+    catch(err){
+        next(err);
     }
 }
 
 
 module.exports.createWorkout = async function(req,res, next){
     if(!req.body.name){
-        res.redirect("/workouts");
+        return res.status(400).json({ "message": "Workout needs a name" });
     }
     else{
         try{
+            if(await Workout.exists({name: req.body.name})){
+                return res.status(400).json({"message": "Workout name already exists"})
+            }
             const workout = new Workout({name: req.body.name, description: req.body.description, userId: req.user._id});
             await workout.save();
-            res.redirect(`/workouts/${workout._id}`);
+            res.send(workout);
         }
         catch(err){
             return next(err);
@@ -40,9 +50,7 @@ module.exports.createWorkout = async function(req,res, next){
 
 module.exports.createExercise = async function(req, res, next){
     if (!req.body.name || !req.body.description || !req.body.sets || !req.body.duration) {
-        console.log(req.body)
-        console.log("Something went wrong!");
-        res.redirect('/workouts' + req.url);
+        return res.status(400).json({ "message": "Fill all the required parameters" });
     }
     else{
         try{
@@ -53,12 +61,10 @@ module.exports.createExercise = async function(req, res, next){
                                             durationType: req.body.durationType,
                                             duration: req.body.duration
                                             });
-            // Obtain workout ID from the url
-            const workoutID = req.url.replace(/\W/g, '');
-            const workout = await Workout.findById(workoutID);
+            const workout = await Workout.findById(req.params.workoutId);
             await workout.exercises.push(exercise);
             await workout.save();
-            res.redirect(`/workouts/${workout._id}`);
+            res.send(workout);
         }
         catch(err){
             return next(err);
